@@ -1,0 +1,22 @@
+name: GitOps Terraform Apply
+on: 
+  push:
+    branches:
+      - main
+  
+jobs:
+  terraform-apply:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform Init
+      
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
